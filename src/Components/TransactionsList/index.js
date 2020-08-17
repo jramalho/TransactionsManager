@@ -58,19 +58,17 @@ const TransactionItem = ({date, description, operation, value}) => {
           : styles.itemRemoveContainer
       }>
       <Text style={styles.text}>{description}</Text>
-      <Text style={styles.text}>{`R$ ${value}`}</Text>
+      <Text style={styles.text}>{`R$ ${value
+        .toFixed(2)
+        .replace('.', ',')}`}</Text>
       <Text style={styles.text}>{moment(date).format('LL')}</Text>
     </View>
   );
 };
 
 const TransactionsList = ({}) => {
-  const renderItem = ({item}) => (
-    <View style={{backgroundColor: 'red', height: 20, width: 20}} />
-  );
-
   return (
-    <View style={{width: '100%', height: 600}}>
+    <View style={{width: '100%', height: 1000}}>
       <FlatList
         data={data}
         ItemSeparatorComponent={() => (
@@ -86,7 +84,8 @@ const TransactionsList = ({}) => {
             value={item.value}
           />
         )}
-        ListEmptyComponent={<View style={{flex: 1, backgroundColor: 'red'}} />}
+        ListEmptyComponent={<Text>Adicione uma transação</Text>}
+        ListHeaderComponent={<View style={{height: 10, width: '100%'}} />}
       />
     </View>
   );
