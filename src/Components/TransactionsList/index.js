@@ -1,55 +1,13 @@
 import React from 'react';
-import {FlatList, Text, View} from 'react-native';
-import moment from 'moment';
+import {FlatList, Text, View, Pressable} from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
+
+import {removeTransaction} from '../../Redux/actions/transaction';
 
 import styles from './styles';
 
-const data = [
-  {
-    id: 1,
-    description: 'Adicionado Fundos',
-    value: 20,
-    operation: 'add',
-    date: moment().format(),
-  },
-  {
-    id: 2,
-    description: 'Retirada',
-    value: 30,
-    operation: 'remove',
-    date: moment().format(),
-  },
-  {
-    id: 3,
-    description: 'ABACAB',
-    value: 30,
-    operation: 'add',
-    date: moment().format(),
-  },
-  {
-    id: 4,
-    description: 'Retirada',
-    value: 30,
-    operation: 'remove',
-    date: moment().format(),
-  },
-  {
-    id: 5,
-    description: 'Retirada',
-    value: 30,
-    operation: 'remove',
-    date: moment().format(),
-  },
-  {
-    id: 6,
-    description: 'Retirada',
-    value: 30,
-    operation: 'remove',
-    date: moment().format(),
-  },
-];
-
-const TransactionItem = ({date, description, operation, value}) => {
+const TransactionItem = ({id, date, description, operation, value}) => {
+  const dispatch = useDispatch();
   return (
     <View
       style={
@@ -58,19 +16,32 @@ const TransactionItem = ({date, description, operation, value}) => {
           : styles.itemRemoveContainer
       }>
       <Text style={styles.text}>{description}</Text>
-      <Text style={styles.text}>{`R$ ${value
+      <Text style={styles.text}>{`R$ ${Number(value)
         .toFixed(2)
         .replace('.', ',')}`}</Text>
-      <Text style={styles.text}>{moment(date).format('LL')}</Text>
+      <Text style={styles.text}>{date}</Text>
+      <Pressable
+        style={{
+          height: 40,
+          width: 40,
+          backgroundColor: 'white',
+          borderRadius: 50,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+        onPress={() => dispatch(removeTransaction(id))}>
+        <Text>-</Text>
+      </Pressable>
     </View>
   );
 };
 
 const TransactionsList = ({}) => {
+  const transactionsData = useSelector((state) => state.transactions);
   return (
     <View style={{width: '100%', height: 1000}}>
       <FlatList
-        data={data}
+        data={transactionsData}
         ItemSeparatorComponent={() => (
           <View style={{height: 10, width: '100%'}} />
         )}
@@ -82,6 +53,7 @@ const TransactionsList = ({}) => {
             description={item.description}
             operation={item.operation}
             value={item.value}
+            id={item.id}
           />
         )}
         ListEmptyComponent={<Text>Adicione uma transação</Text>}
