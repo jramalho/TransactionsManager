@@ -9,7 +9,6 @@ import styles from './styles';
 const Balance = ({positive = true}) => {
   const transactionsData = useSelector((state) => state.transactions);
   const balance = CalculateBalance(transactionsData);
-  console.log(balance);
   return (
     <View style={styles.container}>
       <View style={styles.subContainer}>

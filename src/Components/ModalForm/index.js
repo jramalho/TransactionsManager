@@ -92,6 +92,13 @@ const ModalForm = ({isVisible, close}) => {
   const [operation, setOperation] = useState('add');
   const [date, setDate] = useState(moment().format('DD/MM/YYYY'));
 
+  const resetState = () => {
+    setDescription('');
+    setValue('');
+    setOperation('add');
+    setDate(moment().format('DD/MM/YYYY'));
+  };
+
   const saveAndClose = () => {
     const check = checkTransaction({description, value, operation, date});
 
@@ -104,6 +111,8 @@ const ModalForm = ({isVisible, close}) => {
     }
 
     dispatch(saveTransaction({description, value, operation, date}));
+
+    resetState();
 
     close();
   };

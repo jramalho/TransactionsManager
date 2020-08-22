@@ -23,6 +23,17 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
   },
+  removeButton: {
+    height: 40,
+    width: 40,
+    position: 'absolute',
+    top: 4,
+    right: 4,
+    backgroundColor: 'white',
+    borderRadius: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 export default styles;

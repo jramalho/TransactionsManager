@@ -2,18 +2,16 @@ import {StyleSheet} from 'react-native';
 import {addColor} from '../../Global';
 
 const styles = StyleSheet.create({
-  absoluteFloat: {
+  buttonStyle: {
     backgroundColor: addColor,
-    position: 'absolute',
-    top: 700,
-    bottom: 10,
-    right: 10,
-    width: 40,
-    height: 40,
+    marginTop: 20,
+    width: '80%',
+    height: 50,
     zIndex: 200,
-    borderRadius: 20,
+    borderRadius: 40,
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf: 'center',
   },
 });
 
